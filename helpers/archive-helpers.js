@@ -74,8 +74,7 @@ exports.downloadUrls = function(urls) {
         throw err; 
       } 
       if (response.statusCode === 200) {
-        console.log('TEST: ', exports.paths.archivedSites + '/' + urls[i]);
-        fs.writeFile(exports.paths.archivedSites + '/' + urls[i], body, 'utf8', () => { console.log('done'); }); 
+        fs.writeFile(exports.paths.archivedSites + '/' + urls[i], body, 'utf8', () => { console.log('downloaded ' + urls[i]); }); 
       }
     }); 
   }
