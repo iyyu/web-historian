@@ -25,9 +25,10 @@ exports.handleRequest = function (req, res) {
   } else if (req.method === 'POST') {
     // we need to work on POST 
     var parsedURL = url.parse(req.url);
-    console.log(typeof parsedURL);
-    console.log(parsedURL); 
-    archive.addUrlToList(parsedURL); 
+    
+    // console.log(typeof parsedURL);
+    // console.log(parsedURL); 
+    // archive.addUrlToList(parsedURL); 
   } 
 
 

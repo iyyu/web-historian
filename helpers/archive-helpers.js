@@ -1,7 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
-
+var request = require('request');
 /*
  * You will need to reuse the same paths many times over in the course of this sprint.
  * Consider using the `paths` object below to store frequently used file paths. This way,
@@ -10,7 +10,7 @@ var _ = require('underscore');
  */
 
 exports.paths = {
-  siteAssets: path.join(__dirname, '../web/public'),
+  siteAssets: path.join(__dirname, '../web/public'), // our own static HTML page and stylesheet
   archivedSites: path.join(__dirname, '../archives/sites'),
   list: path.join(__dirname, '../archives/sites.txt')
 };
@@ -63,5 +63,19 @@ exports.isUrlArchived = function(url, callback) {
 
 exports.downloadUrls = function(urls) {
   // takes in array of urls that need to be archived
-  // hit up the htmlfetcher
+  // to be used in htmlfetcher
+  // ['www.example.com', 'www.google.com']
+  for (var i = 0; i < urls.length; i++) {
+    var modifiedUrl = 'http://' + urls[i];
+    console.log('urls[i]', urls[i]);
+    console.log('modifiedUrl', modifiedUrl);
+    request(modifiedUrl, function (err, response, body) {
+      if (err) { 
+        throw err; 
+      } else if (response.statusCode === 200) {
+        console.log('RESPONSE', response.statusCode);
+        fs.writeFile(urls[i], body, 'utf8', () => { console.log(urls[i]); }); 
+      }  
+    }); 
+  }
 };
