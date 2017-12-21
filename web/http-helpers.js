@@ -15,11 +15,12 @@ exports.serveAssets = function(res, asset, callback) {
   // (Static files are things like html (yours or archived from others...),
   // css, or anything that doesn't change often.)
   fs.readFile(archive.paths.siteAssets + asset, 'utf8', (err, data) => {
+    // console.log(data);
     if (err) {
-      console.log('ASSET: ', asset); 
+      // console.log('ASSET: ', asset); 
       throw err; 
     }
-    console.log(data); 
+    callback(res, data); 
   });
   
   

@@ -13,12 +13,20 @@ exports.handleRequest = function (req, res) {
     // console.log('Req method registered');
     if (req.url === '/' || req.url === '/index.html') {
       // console.log('Req URL received');
-      utils.serveAssets(res, '/index.html', function(err, data) {
-        console.log(data); 
-      } ); 
-    }
-  }
+      utils.serveAssets(res, '/index.html', (res, data) => {
+        // console.log(data);
+        res.writeHead(200, utils.headers);
+        res.end(data);
+      }); 
+    } 
+  } 
 
 
-  res.end(archive.paths.list);
+  // res.end(archive.paths.list);
 };
+
+
+// else {
+//       console.log('yo so 404 or nah');
+//       utils.send404(res); 
+//     } 
