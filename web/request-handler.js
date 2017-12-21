@@ -24,7 +24,7 @@ exports.handleRequest = function (req, res) {
     }  
   } else if (req.method === 'POST') {
     var parsedURL = url.parse(req.url); 
-    
+    // archive.readListOfUrls((str) => JSON.parse(str));
   } 
 
 

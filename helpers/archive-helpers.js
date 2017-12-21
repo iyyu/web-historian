@@ -26,12 +26,29 @@ exports.initialize = function(pathsObj) {
 // modularize your code. Keep it clean!
 
 exports.readListOfUrls = function(callback) {
-  //use fs.read the sites.txt
+  //use fs.readFile( path to the sites.txt, encoding, callback)
+  // if (err) throw err;
+  // returns an array of data.split('');
+  // assumes that the callback is making the return for readListOfUrls
+  var results = fs.readFileSync(exports.paths.list, 'utf8', (err, data) => {
+    if (err) { throw err; }
+    // return callback(data.split('\n'));
+    // var results = callback(data.split('\n'));
+    // // console.log('RESULTS: ', results); 
+    // return results; 
+    return data;
+  });
+  // console.log('RLO RESULTS', results.split('\n'));
+  return callback(results.split('\n'));
 };
 
 exports.isUrlInList = function(url, callback) {
-// use previous funnction to check if url in list
-
+  // see if url is in array by using rLO
+  // returns boolean
+  var urlList = exports.readListOfUrls((array) => {
+    return array;
+  });
+  return callback(urlList.indexOf(url) !== -1);
 };
 
 exports.addUrlToList = function(url, callback) {
