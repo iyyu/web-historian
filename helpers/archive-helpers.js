@@ -27,10 +27,10 @@ exports.initialize = function(pathsObj) {
 
 exports.readListOfUrls = function(callback) {
   //use fs.readFile( path to the sites.txt, encoding, callback)
-  // if (err) throw err;
   // returns an array of data.split('');
   // assumes that the callback is making the return for readListOfUrls
   fs.readFile(exports.paths.list, 'utf8', (err, data) => {
+    if (err) { throw err; }
     return callback(data.split('\n'));
   });
 };
@@ -46,8 +46,12 @@ exports.addUrlToList = function(url, callback) {
   // if !isUrlInList
     // fs.write the URL to the sites.txt
   if (!exports.isUrlInList(url, (boolean) => boolean)) {
-    console.log('we in here'); 
-  }  
+    console.log(url);
+    fs.appendFile(exports.paths.list, url, 'utf8', (err) => {
+      if (err) { throw err; }
+      callback(); 
+    });
+  } 
 };
 
 exports.isUrlArchived = function(url, callback) {
