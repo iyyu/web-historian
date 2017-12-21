@@ -62,5 +62,6 @@ exports.isUrlArchived = function(url, callback) {
 };
 
 exports.downloadUrls = function(urls) {
-// hit up the htmlhelper 
+  // takes in array of urls that need to be archived
+  // hit up the htmlfetcher
 };

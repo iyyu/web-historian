@@ -8,7 +8,7 @@ exports.handleRequest = function (req, res) {
   // if req.method === "GET"
     // check for index.html
   //call serveAssets which will either 200 or 404
-  console.log('method: ' + req.method + ' and URL: ' + req.url);
+  // console.log('method: ' + req.method + ' and URL: ' + req.url);
   if (req.method === 'GET') {
     // console.log('Req method registered');
     if (req.url === '/' || req.url === '/index.html') {
@@ -23,8 +23,11 @@ exports.handleRequest = function (req, res) {
       res.end('Not found'); 
     }  
   } else if (req.method === 'POST') {
-    var parsedURL = url.parse(req.url); 
-    // archive.readListOfUrls((str) => JSON.parse(str));
+    // we need to work on POST 
+    var parsedURL = url.parse(req.url);
+    console.log(typeof parsedURL);
+    console.log(parsedURL); 
+    archive.addUrlToList(parsedURL); 
   } 
 
 
