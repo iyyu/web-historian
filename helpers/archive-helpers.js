@@ -30,30 +30,24 @@ exports.readListOfUrls = function(callback) {
   // if (err) throw err;
   // returns an array of data.split('');
   // assumes that the callback is making the return for readListOfUrls
-  var results = fs.readFileSync(exports.paths.list, 'utf8', (err, data) => {
-    if (err) { throw err; }
-    // return callback(data.split('\n'));
-    // var results = callback(data.split('\n'));
-    // // console.log('RESULTS: ', results); 
-    // return results; 
-    return data;
+  fs.readFile(exports.paths.list, 'utf8', (err, data) => {
+    return callback(data.split('\n'));
   });
-  // console.log('RLO RESULTS', results.split('\n'));
-  return callback(results.split('\n'));
 };
 
 exports.isUrlInList = function(url, callback) {
   // see if url is in array by using rLO
-  // returns boolean
-  var urlList = exports.readListOfUrls((array) => {
-    return array;
+  exports.readListOfUrls((array) => {
+    callback(array.includes(url));  
   });
-  return callback(urlList.indexOf(url) !== -1);
 };
 
 exports.addUrlToList = function(url, callback) {
   // if !isUrlInList
     // fs.write the URL to the sites.txt
+  if (!exports.isUrlInList(url, (boolean) => boolean)) {
+    console.log('we in here'); 
+  }  
 };
 
 exports.isUrlArchived = function(url, callback) {
