@@ -46,7 +46,6 @@ exports.addUrlToList = function(url, callback) {
   // if !isUrlInList
     // fs.write the URL to the sites.txt
   if (!exports.isUrlInList(url, (boolean) => boolean)) {
-    console.log(url);
     fs.appendFile(exports.paths.list, url, 'utf8', (err) => {
       if (err) { throw err; }
       callback(); 
@@ -56,9 +55,10 @@ exports.addUrlToList = function(url, callback) {
 
 exports.isUrlArchived = function(url, callback) {
 // the html of the url is stored in the sites folder  
-// assuming we have requested for this site before, is it here?
-// we know: we will check to see if the url is in the list first using previous function 
-
+  fs.readdir(exports.paths.archivedSites, 'utf8', (err, files) => {
+    if (err) { throw err; }
+    callback(files.includes(url));
+  });
 };
 
 exports.downloadUrls = function(urls) {
