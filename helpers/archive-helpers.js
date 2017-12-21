@@ -26,16 +26,26 @@ exports.initialize = function(pathsObj) {
 // modularize your code. Keep it clean!
 
 exports.readListOfUrls = function(callback) {
+  //use fs.read the sites.txt
 };
 
 exports.isUrlInList = function(url, callback) {
+// use previous funnction to check if url in list
+
 };
 
 exports.addUrlToList = function(url, callback) {
+  // if !isUrlInList
+    // fs.write the URL to the sites.txt
 };
 
 exports.isUrlArchived = function(url, callback) {
+// the html of the url is stored in the sites folder  
+// assuming we have requested for this site before, is it here?
+// we know: we will check to see if the url is in the list first using previous function 
+
 };
 
 exports.downloadUrls = function(urls) {
+// hit up the htmlhelper 
 };

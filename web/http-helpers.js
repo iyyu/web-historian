@@ -29,22 +29,22 @@ exports.serveAssets = function(res, asset, callback) {
 
 
 // As you progress, keep thinking about what helper functions you can put here!
-module.exports.prepareResponse = function(req, cb) {
+exports.prepareResponse = function(req, cb) {
   var data = '';
   req.on('data', function(chunk) { data += chunk; });
   req.on('end', function() { cb(data); });
 };
 
-module.exports.respond = function(res, data, status = 200) {
+exports.respond = function(res, data, status = 200) {
   res.writeHead(status, headers);
   res.end(JSON.stringify(data));
 };
 
-module.exports.send404 = function(res) {
-  exports.respond(res, 'Not Found', 404);
+exports.send404 = function(res) {
+  respond(res, 'Not Found', 404);
 };
 
-module.exports.redirector = function(res, loc, status = 302) {
+exports.redirector = function(res, loc, status = 302) {
   res.writeHead(status, { Location: loc });
   res.end();
 };

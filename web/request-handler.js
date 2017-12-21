@@ -18,7 +18,13 @@ exports.handleRequest = function (req, res) {
         res.writeHead(200, utils.headers);
         res.end(data);
       }); 
-    } 
+    } else {
+      res.writeHead(404, utils.headers);
+      res.end('Not found'); 
+    }  
+  } else if (req.method === 'POST') {
+    var parsedURL = url.parse(req.url); 
+    
   } 
 
 
@@ -26,7 +32,3 @@ exports.handleRequest = function (req, res) {
 };
 
 
-// else {
-//       console.log('yo so 404 or nah');
-//       utils.send404(res); 
-//     } 
