@@ -54,11 +54,7 @@ exports.handleRequest = function (req, res) {
   if (req.method === 'OPTIONS') {
     
   }
-
-
   // res.end(archive.paths.list);
 };
-
-
 
 //           });
