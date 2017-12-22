@@ -38,19 +38,18 @@ exports.readListOfUrls = function(callback) {
 exports.isUrlInList = function(url, callback) {
   // see if url is in array by using rLO
   exports.readListOfUrls((array) => {
+    console.log('boolean:', array.includes(url));
     callback(array.includes(url));  
   });
 };
 
 exports.addUrlToList = function(url, callback) {
   // if !isUrlInList
-    // fs.write the URL to the sites.txt
-  if (!exports.isUrlInList(url, (boolean) => boolean)) {
-    fs.appendFile(exports.paths.list, url, 'utf8', (err) => {
-      if (err) { throw err; }
-      callback(); 
-    });
-  } 
+    // fs.write the URL to the sites.txt 
+  fs.appendFile(exports.paths.list, url, 'utf8', (err) => {
+    if (err) { throw err; }
+    callback(); 
+  });
 };
 
 exports.isUrlArchived = function(url, callback) {

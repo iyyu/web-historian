@@ -26,8 +26,6 @@ exports.serveAssets = function(res, asset, callback) {
   
 };
 
-
-
 // As you progress, keep thinking about what helper functions you can put here!
 exports.prepareResponse = function(req, cb) {
   var data = '';
@@ -36,12 +34,12 @@ exports.prepareResponse = function(req, cb) {
 };
 
 exports.respond = function(res, data, status = 200) {
-  res.writeHead(status, headers);
-  res.end(JSON.stringify(data));
+  res.writeHead(status, exports.headers);
+  res.end(data);
 };
 
 exports.send404 = function(res) {
-  respond(res, 'Not Found', 404);
+  exports.respond(res, 'Not Found', 404);
 };
 
 exports.redirector = function(res, loc, status = 302) {
