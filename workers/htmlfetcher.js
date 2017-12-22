@@ -23,12 +23,6 @@ exports.htmlFetcher = function(sitestxt) {
         // this means the site is an empty string
         sites.splice(sites.indexOf(site), 1); 
       }
-    // console.log('1newUrls: ', newUrls); 
-      
     });
-    
-    
-  
   }); 
-  // returns array of site URL strings
 };  

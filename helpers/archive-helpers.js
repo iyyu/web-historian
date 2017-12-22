@@ -38,7 +38,6 @@ exports.readListOfUrls = function(callback) {
 exports.isUrlInList = function(url, callback) {
   // see if url is in array by using rLO
   exports.readListOfUrls((array) => {
-    console.log('boolean:', array.includes(url));
     callback(array.includes(url));  
   });
 };
@@ -66,8 +65,8 @@ exports.downloadUrls = function(urls) {
   // ['www.example.com', 'www.google.com']
   for (let i = 0; i < urls.length; i++) {
     let modifiedUrl = 'http://' + urls[i];
-    console.log('urls[i]', urls[i]);
-    console.log('modifiedUrl', modifiedUrl);
+    // console.log('urls[i]', urls[i]);
+    // console.log('modifiedUrl', modifiedUrl);
     requestLib(modifiedUrl, function (err, response, body) {
       if (err) { 
         throw err; 

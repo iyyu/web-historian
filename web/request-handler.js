@@ -4,18 +4,13 @@ var archive = require('../helpers/archive-helpers');
 var utils = require('./http-helpers');
 var url = require('url');
 var fetchHtml = require('../workers/htmlfetcher');
-// var htmlhelp = require('../workers/htmlfetcher');
+
 exports.handleRequest = function (req, res) {
-  // if req.method === "GET"
-    // check for index.html
+  // check for index.html
   //call serveAssets which will either 200 or 404
-  // console.log('method: ' + req.method + ' and URL: ' + req.url);
   if (req.method === 'GET') {
-    // console.log('Req method registered');
     if (req.url === '/' || req.url === '/index.html') {
-      // console.log('Req URL received');
       utils.serveAssets(res, '/index.html', (res, data) => {
-        // console.log(data);
         utils.respond(res, data);
       }); 
     } else {
@@ -27,13 +22,16 @@ exports.handleRequest = function (req, res) {
       var url = data.slice(4); 
       // check if string is on list
       // .. if not, add to list 
-      archive.isUrlInList(url, (inList) => { 
+      archive.isUrlInList(url, (inList) => {
         if (inList === false) {
           url = url + '\n';
           archive.addUrlToList(url, () => { 
             console.log('added ' + url + ' to list!');
             fetchHtml.htmlFetcher(archive.paths.list);
           });
+        
+          utils.redirectToLoading(res, data);
+        
         } else {
           // site is inList
           archive.isUrlArchived(url, (archived) => {
@@ -44,10 +42,7 @@ exports.handleRequest = function (req, res) {
               }, siteFile);
             } else {
               // inList but !archived
-              var siteFile = archive.paths.siteAssets;
-              utils.serveAssets(res, '/loading.html', (res, data) => {
-                utils.respond(res, data, 302);
-              }, siteFile);
+              utils.redirectToLoading(res, data);
             }
           });
         }

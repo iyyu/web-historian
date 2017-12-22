@@ -38,3 +38,10 @@ exports.respond = function(res, data, status = 200) {
 exports.send404 = function(res) {
   exports.respond(res, 'Not Found', 404);
 };
+
+exports.redirectToLoading = function (res, data, status = 302) {
+  var siteFile = archive.paths.siteAssets;
+  exports.serveAssets(res, '/loading.html', (res, data) => {
+    exports.respond(res, data);
+  }, siteFile);
+};
