@@ -37,6 +37,15 @@ exports.handleRequest = function (req, res) {
             fetchHtml.htmlFetcher(archive.paths.list);
           });
           
+        } else {
+          archive.isUrlArchived(url, (archived) => {
+            if (archived) {
+              var siteFile = archive.paths.archivedSites;
+              utils.serveAssets(res, url, (res, data) => {
+                utils.respond(res, data);
+              }, siteFile);
+            }
+          });
         }
       }
       );   // if the page is on the list but not archived, redirect to waiting page
@@ -51,12 +60,5 @@ exports.handleRequest = function (req, res) {
 };
 
 
-// archive.isUrlArchived(url, (boolean) => {
-//             if (boolean) {
-//               console.log('isurlarchived', boolean);
-//               var siteFile = archive.paths.siteAssets + url;
-//               utils.serveAssets(res, siteFile, (res, data) => {
-//                 utils.respond(res, data);
-//               });
-//             }
+
 //           });
