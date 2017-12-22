@@ -16,8 +16,7 @@ exports.handleRequest = function (req, res) {
       // console.log('Req URL received');
       utils.serveAssets(res, '/index.html', (res, data) => {
         // console.log(data);
-        res.writeHead(200, utils.headers);
-        res.end(data);
+        utils.respond(res, data);
       }); 
     } else {
       utils.send404(res); 
@@ -28,33 +27,34 @@ exports.handleRequest = function (req, res) {
       var url = data.slice(4); 
       // check if string is on list
       // .. if not, add to list 
-      archive.isUrlInList(url, (boolean) => { 
-        if (boolean === false) {
-          console.log('boolean', boolean);
+      archive.isUrlInList(url, (inList) => { 
+        if (inList === false) {
           url = url + '\n';
           archive.addUrlToList(url, () => { 
             console.log('added ' + url + ' to list!');
             fetchHtml.htmlFetcher(archive.paths.list);
           });
-          
         } else {
+          // site is inList
           archive.isUrlArchived(url, (archived) => {
             if (archived) {
               var siteFile = archive.paths.archivedSites;
               utils.serveAssets(res, url, (res, data) => {
                 utils.respond(res, data);
               }, siteFile);
+            } else {
+              // inList but !archived
+              var siteFile = archive.paths.siteAssets;
+              utils.serveAssets(res, '/loading.html', (res, data) => {
+                utils.respond(res, data, 302);
+              }, siteFile);
             }
           });
         }
-      }
-      );   // if the page is on the list but not archived, redirect to waiting page
+      });
     });    
   } 
   if (req.method === 'OPTIONS') {
     
   }
-  // res.end(archive.paths.list);
 };
-
-//           });

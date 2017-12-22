@@ -16,15 +16,11 @@ exports.serveAssets = function(res, asset, callback, path = archive.paths.siteAs
   // css, or anything that doesn't change often.)
   asset = path + '/' + asset;
   fs.readFile(asset, 'utf8', (err, data) => {
-    // console.log(data);
-    if (err) {
-      // console.log('ASSET: ', asset); 
+    if (err) { 
       throw err; 
     }
     callback(res, data); 
   });
-  
-  
 };
 
 // As you progress, keep thinking about what helper functions you can put here!
@@ -41,9 +37,4 @@ exports.respond = function(res, data, status = 200) {
 
 exports.send404 = function(res) {
   exports.respond(res, 'Not Found', 404);
-};
-
-exports.redirector = function(res, loc, status = 302) {
-  res.writeHead(status, { Location: loc });
-  res.end();
 };
